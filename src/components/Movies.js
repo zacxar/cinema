@@ -2,27 +2,21 @@ import React from "react"
 import Movie from "./Movie"
 import { confirmAlert } from "react-confirm-alert"
 import "react-confirm-alert/src/react-confirm-alert.css"
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
+import AddMovie from "../AddMovie"
 import MovieClass from "../class/MovieClass"
+import DeleteMovieForm from "../forms/DeleteMovieForm"
+import EditMovieForm from "../forms/EditMovieForm"
+import DetailMovieForm from "../forms/DetailMovieForm"
 
 class Movies extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            moviesList : [
-                new MovieClass(1, "Terminator", 1980, 120),
-                new MovieClass(2, "Indiana Jones", 1985, 124)
-            ],
-        }
-        this.showDetailForm = this.showDetailForm.bind(this)
-        this.showEditForm = this.showEditForm.bind(this)
-        this.showDeleteForm = this.showDeleteForm.bind(this)
-        this.addMovie = this.addMovie.bind(this)
-        this.editMovie = this.editMovie.bind(this)
-        this.deleteMovie = this.deleteMovie.bind(this)
     }
 
-    showDetailForm(id) {
-        const { moviesList } = this.state
+    showDetailForm = (id) => {
+        const { moviesList } = this.props
         var index = moviesList.findIndex(function (value) {
             return value.id === id;
         })
@@ -36,8 +30,8 @@ class Movies extends React.Component {
         })
     }
 
-    showEditForm(id) {
-        const { moviesList } = this.state
+    showEditForm = (id) => {
+        const { moviesList, editMovie } = this.props
         var index = moviesList.findIndex(function (value) {
             return value.id === id;
         })
@@ -46,16 +40,16 @@ class Movies extends React.Component {
             customUI: ({ onClose }) => {
                 return (
                     <div>
-                        <EditMovieForm moviesList={moviesList} index={index} onClose={onClose} editMovie={this.editMovie}/>
-                        <NotificationContainter/>
+                        <EditMovieForm moviesList={moviesList} index={index} onClose={onClose} editMovie={editMovie}/>
+                        <NotificationContainer/>
                     </div>
                 )
             }
         })
     }
 
-    showDeleteForm(id) {
-        const { moviesList } = this.state
+    showDeleteForm = (id) => {
+        const { moviesList, deleteMovie } = this.props
         var index = moviesList.findIndex(function (value) {
             return value.id === id;
         })
@@ -64,58 +58,19 @@ class Movies extends React.Component {
             customUI: ({ onClose }) => {
                 return (
                     <div>
-                        <DeleteMovieForm index={index} onClose={onClose} deleteMovie={this.deleteMovie}/>
+                        <DeleteMovieForm index={index} onClose={onClose} deleteMovie={deleteMovie}/>
                     </div>
                 )
             }
-        })
-    }
-    
-    onChange(e) {
-        var name = e.target.id
-        this.setState({
-            [name]: e.target.value
-        })
-    }
-
-    addMovie(s) {
-        this.setState(state => {
-            if (state.title !== '' && state.year !== '' && state.duration !== '') {
-                var id = state.moviesList.length + 1
-                var movies = state.moviesList
-                let newMovie = new MovieClass(id, s.title, s.year, s.duration)
-                movies.push(newMovie)
-                return {moviesList : movies}
-            }
-        })
-    }
-
-    editMovie(index, s) {
-        this.setState(state => {
-            var movies = state.moviesList
-
-            movies[index].title = s.editTitle
-            movies[index].year = s.editYear
-            movies[index].duration = s.editDuration
-
-            return { moviesList: movies }
-        })
-        this.createNotification("Zedytowano film")
-    }
-
-    deleteMovie(index) {
-        this.setState(state => {
-            var movies = state.moviesList
-            movies.splice(index, 1)
-            return { moviesList: movies }
         })
     }
 
     render() {
+        const { moviesList } = this.props
         return (
             <div>
                 <h3>Lista Filmów</h3>
-                {this.state.moviesList.map((movie, key) => {
+                {moviesList.map((movie, key) => {
                     return (
                         <Movie
                             key={key}
@@ -129,15 +84,6 @@ class Movies extends React.Component {
                         />
                     )
                 })}
-
-                <div>
-                    <p>Dodaj Film</p>
-                    <input type="text" placeholder="Tytuł filmu" id="title" onChange={(e) => this.onChange(e)}/>
-                    <input type="text" placeholder="Rok produkcji" id="year" onChange={(e) => this.onChange(e)}/>
-                    <input type="text" placeholder="Długość filmu (minuty)" id="duration" onChange={(e) => this.onChange(e)}/>
-                    <button variant="secondary" onClick={() => this.addMovie()}>Dodaj</button>
-                </div>
-
             </div>
         )
     }

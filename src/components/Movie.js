@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { Button } from "react-bootstrap"
 
 const Movie = props => {
     return (
@@ -8,8 +9,8 @@ const Movie = props => {
             <p>Rok produkcji: {props.year}</p>
             <p>Czas trwania: {props.duration}</p>
 
-            <button variant="secondary">Edytuj Film</button>
-            <button variant="secondary">Usuń Film</button>
+            <Button variant="secondary" onClick={() => props.showEditForm(props.id)}>Edytuj Film</Button>
+            <Button variant="secondary" onClick={() => props.showDeleteForm(props.id)}>Usuń Film</Button>
         </div>
     )
 }

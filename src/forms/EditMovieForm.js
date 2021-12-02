@@ -1,13 +1,14 @@
 import React from "react"
+import { Button } from "react-bootstrap"
 import * as Icon from "react-bootstrap-icons"
 
 class EditMovieForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            editTitle: props.moviesList[props.index].editTitle,
-            editYear: props.moviesList[props.index].editYear,
-            editDuration: props.moviesList[props.index].editDuration,
+            editTitle: props.moviesList[props.index].title,
+            editYear: props.moviesList[props.index].year,
+            editDuration: props.moviesList[props.index].duration,
         }
     }
 
@@ -38,7 +39,7 @@ class EditMovieForm extends React.Component {
                     <input type="text" id="editDuration" defaultValue={moviesList[index].duration} style={{border: "none"}} onChange={(e) => this.onChange(e)}/>
                 </div>
                 <div className="movieEditButton">
-                    <Button variant="primary" onClick={() => editNote(index, this.state)}>Zapisz</Button>
+                    <Button variant="primary" onClick={() => editMovie(index, this.state)}>Zapisz</Button>
                 </div>
             </div>
         )
