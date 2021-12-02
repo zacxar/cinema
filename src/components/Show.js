@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { Button } from "react-bootstrap"
 
 const Show = props => {
     return (
@@ -8,9 +9,10 @@ const Show = props => {
             <p>Rok produkcji: {props.year}</p>
             <p>Czas trwania: {props.duration}</p>
             <p>Data i godzina: {props.date.getDate()}.{props.date.getMonth() + 1}.{props.date.getFullYear()}</p>
+            <p>Sala: {props.roomId}</p>
 
-            <button variant="secondary">Edytuj Seans</button>
-            <button variant="secondary">Usuń Seans</button>
+            <Button variant="primary" onClick={() => props.showEditForm(props.id)}>Edytuj Seans</Button>
+            <Button variant="secondary" onClick={() => props.showDeleteForm(props.id)}>Usuń Seans</Button>
         </div>
     )
 }
