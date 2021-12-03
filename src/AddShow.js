@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap"
 import { confirmAlert } from "react-confirm-alert"
 import { Navigate } from "react-router-dom"
+import Shows from "./components/Shows";
 
 class AddShow extends React.Component {
     constructor(props) {
@@ -12,7 +13,7 @@ class AddShow extends React.Component {
             duration: '',
             date:'',
             roomId:'',
-            redirect: false,
+            redirect: false
         }
     }
 
@@ -34,7 +35,7 @@ class AddShow extends React.Component {
             date: date,
             roomId: roomId
         }
-//problem-blad wskazujacy na toze assShow nie jest funkcja
+
         addShow(body)
         this.setState({
             redirect: true
@@ -44,7 +45,7 @@ class AddShow extends React.Component {
     render() {
         const { redirect } = this.state
         if (redirect === true)
-            return <Navigate to="/allShows"/>
+            return <Navigate to="/addShow"/>
 
         return (
             <div>
@@ -52,8 +53,8 @@ class AddShow extends React.Component {
                 <input type="text" placeholder="Tytuł filmu" id="title" onChange={(e) => this.onChange(e)}/>
                 <input type="text" placeholder="Rok produkcji" id="year" onChange={(e) => this.onChange(e)}/>
                 <input type="text" placeholder="Długość filmu (minuty)" id="duration" onChange={(e) => this.onChange(e)}/>
-                <input type="text" placeholder="Data i godzina" id="date" onChange={(e) => this.onChange(e)}/>
-                <input type="text" placeholder="Sala" id="roomId" onChange={(e) => this.onChange(e)}/>
+                <input type="text" placeholder="Data i godzina" id="title" onChange={(e) => this.onChange(e)}/>
+                <input type="text" placeholder="Sala" id="year" onChange={(e) => this.onChange(e)}/>
                 <Button variant="secondary" onClick={this.add}>Dodaj seans</Button>
             </div>
         )

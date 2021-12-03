@@ -8,40 +8,31 @@ import DetailShowForm from "../forms/DetailShowForm"
 import DeleteShowForm from "../forms/DeleteShowForm"
 import ShowClass from "../class/ShowClass"
 import EditShowForm from "../forms/EditShowForm"
+import AddShow from "../AddShow";
 
 class Shows extends React.Component {
     constructor(props){
         super(props)
-        this.state={
-            showsList : [
-                new ShowClass(0, this.props.moviesList[0].title, this.props.moviesList[0].year, this.props.moviesList[0].duration, new Date(2021, 11, 23, 16, 0).toString(), 5)
-                //new ShowClass(1, this.props.moviesList[1])
-            ],
-        }
-    }
-
-    createNotification(message){
-        NotificationManager.success('Success', message);
     }
     
     showDetailForm=(id)=>{
-        const {showsList}=this.state
+        const {showsList}=this.props
         var index=showsList.findIndex(function(value){
-            return value.id===id
+            return value.id === id
         })
         confirmAlert({
             customUI:({onClose})=>{
                 return(
                     <div>
-                    <DetailShowForm List={showsList} index={index} onClose={onClose}/>
-                 </div>
+                        <DetailShowForm List={showsList} index={index} onClose={onClose}/>
+                    </div>
                 )
             }
         })
     }
     
     showDeleteForm = (id) => {
-            const { showsList } = this.state
+            const { showsList, deleteShow } = this.props
             var index = showsList.findIndex(function (value) {
                 return value.id === id;
             })
@@ -50,7 +41,7 @@ class Shows extends React.Component {
                 customUI: ({ onClose }) => {
                     return (
                         <div>
-                            <DeleteShowForm index={index} onClose={onClose} deleteShow={this.deleteShow}/>
+                            <DeleteShowForm index={index} onClose={onClose} deleteShow={deleteShow}/>
                         </div>
                     )
                 }
@@ -58,7 +49,7 @@ class Shows extends React.Component {
         }
        
     showEditForm = (id) => {
-        const { showsList } = this.state
+        const { showsList, editShow } = this.props
         var index = showsList.findIndex(function (value) {
             return value.id === id;
         })
@@ -67,72 +58,39 @@ class Shows extends React.Component {
             customUI: ({ onClose }) => {
                 return (
                     <div>
-                        <EditShowForm showsList={showsList} index={index} onClose={onClose} editShow={this.editShow}/>
+                        <EditShowForm showsList={showsList} index={index} onClose={onClose} editShow={editShow}/>
                         <NotificationContainer/>
                     </div>
                 )
             }
         })
     }
-    addShow = (s) => {
-            this.setState(state => {
-                if (state.title !== '' && state.year !== '' && state.duration !== '' ) {
-                    var id = state.showsList.length + 1
-                    var shows = state.showsList
-                    let newShow = new ShowClass(id, s.date, s.hour)
-                    shows.push(newShow)
-                    return {showsList : shows}
-                }
-            })
-        }
     
-    
-        editShow = (index, s) => {
-            this.setState(state => {
-                var shows = state.showsList
-    
-                shows[index].date = s.editDate
-                shows[index].hour = s.editHour
-                shows[index].room = s.editRoom
-    
-                return { ShowsList: shows }
-            })
-            this.createNotification("Zedytowano seans")
-        }
-    
-        deleteShow = (index) => {
-            this.setState(state => {
-                var shows = state.showsList
-                shows.splice(index, 1)
-                return { showsList: shows }
-            })
-        }
-    
-        render() {
-            return (
-                <div>
-                    <h3>Lista Filmów</h3>
-                    {this.state.showsList.map((show, key) => {
-                        return (
-                            <Show
-                                key={key}
-                                id={show.id}
-                                title={show.title}
-                                year={show.year}
-                                duration={show.duration}
-                                date={show.date}
-                                roomId={show.roomId}
-                                showDetailForm={this.showDetailForm}
-                                showEditForm={this.showEditForm}
-                                showDeleteForm={this.showDeleteForm}
-                            />
-                        )
-                    })}
-                    {/* <addShow addShow={this.addShow}/> */}
-                </div>
-            )
-        }
+    render() {
+        const { showsList } = this.props
+        return (
+            <div>
+                <h3>Lista Seansów</h3>
+                {showsList.map((show, key) => {
+                    return (
+                         <Show
+                            key={key}
+                            id={show.id}
+                            title={show.title}
+                            year={show.year}
+                            duration={show.duration}
+                            date={show.date}
+                            roomId={show.roomId}
+                            showDetailForm={this.showDetailForm}
+                            showEditForm={this.showEditForm}
+                            showDeleteForm={this.showDeleteForm}
+                        />
+                    )
+                })}
+            </div>
+        )
     }
+}
 
 
 export default Shows

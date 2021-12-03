@@ -10,6 +10,7 @@ import AddMovie from "./AddMovie";
 import MovieClass from "./class/MovieClass";
 import Shows from "./components/Shows";
 import AddShow from "./AddShow";
+import ShowClass from "./class/ShowClass"
 
 class App extends React.Component {
     constructor(props) {
@@ -18,6 +19,10 @@ class App extends React.Component {
             moviesList : [
                 new MovieClass(1, "Terminator", 1980, 120),
                 new MovieClass(2, "Indiana Jones", 1985, 124)
+            ],
+
+            showsList : [
+                //new ShowClass(0, this.moviesList[0].title, this.state.moviesList[0].year, this.state.moviesList[0].duration, new Date(2021, 11, 23, 16, 0).toString(), 5)
             ]
         }
     }
@@ -37,19 +42,35 @@ class App extends React.Component {
             })
         }
         this.setState({
-            lastId: maxId + 1
+            lastMovieId: maxId + 1
+        })
+    }
+
+    calculateShowId() {
+        const { showsList } = this.state
+        let maxId = 0
+
+        if(showsList.length > 0) {
+            showsList.forEach((show) => {
+                if(show.id >= maxId)
+                    maxId = show.id
+            })
+        }
+        this.setState({
+            lastShowId: maxId + 1
         })
     }
 
     componentDidMount() {
         this.calculateMovieId()
+        this.calculateShowId()
     }
 
     addMovie = (s) => {
         this.calculateMovieId()
         this.setState(state => {
             if (state.title !== '' && state.year !== '' && state.duration !== '') {
-                var id = this.state.lastId
+                var id = this.state.lastMovieId
                 var movies = state.moviesList
                 let newMovie = new MovieClass(id, s.title, s.year, s.duration)
                 movies.push(newMovie)
@@ -79,6 +100,40 @@ class App extends React.Component {
         })
     }
 
+    addShow = (s) => {
+        this.calculateShowId()
+        this.setState(state => {
+            if (state.title !== '' && state.year !== '' && state.duration !== '' ) {
+                var id = this.state.lastShowId
+                var shows = state.showsList
+                let newShow = new ShowClass(id, s.date, s.hour)
+                shows.push(newShow)
+                return {showsList : shows}
+            }
+        })
+    }
+
+    editShow = (index, s) => {
+        this.setState(state => {
+            var shows = state.showsList
+
+            shows[index].date = s.editDate
+            shows[index].hour = s.editHour
+            shows[index].room = s.editRoom
+
+            return { ShowsList: shows }
+        })
+        this.createNotification("Zedytowano seans")
+    }
+
+    deleteShow = (index) => {
+        this.setState(state => {
+            var shows = state.showsList
+            shows.splice(index, 1)
+            return { showsList: shows }
+        })
+    }
+
     render () {
         const { moviesList } = this.state
         return (
@@ -105,11 +160,15 @@ class App extends React.Component {
 
                     <Route path="/addShow"
                         //reander ekranu dodawania seansu
+                        //bład nie znajduje addshow
                         element={<AddShow addShow={this.addShow}/>}
                     />
 
                     <Route path="/allShows"
-                        element={<Shows moviesList={moviesList}/>}
+                        element={<Shows moviesList={moviesList}
+                            deleteShow={this.deleteShow}
+                            editShow={this.editShow}
+                        />}
                         //render wszystkich seansow (zarzadzanie seansami - usuwanie i edytowanie)
                     />
                 </Routes>
