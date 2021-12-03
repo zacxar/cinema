@@ -1,6 +1,8 @@
 import React from "react"
 import { Button } from "react-bootstrap"
 import * as Icon from "react-bootstrap-icons"
+import DatePicker from "react-date-picker"
+
 
 class EditShowForm extends React.Component {
     constructor(props) {
@@ -8,7 +10,7 @@ class EditShowForm extends React.Component {
         this.state = {
             //editTitle: props.moviesList[props.index].title,
             editDate: props.showsList[props.index].date,
-            editHour: props.showsList[props.index].duration,
+            editHour: props.showsList[props.index].date,
         }
     }
 
@@ -17,6 +19,18 @@ class EditShowForm extends React.Component {
         this.setState({
             [name]: e.target.value
         })
+    }
+    datePick()
+    {
+        const [value, onChange]=this.useState(new Date())
+        return(
+            <div>
+                <DatePicker
+                onChange={this.onChange}
+                value={this.value}
+                />
+            </div>
+        )
     }
 
     render() {
@@ -28,11 +42,11 @@ class EditShowForm extends React.Component {
                 </span>
                 <div className="showDateEdit">
                     <label className="showEditLabel">Data</label>
-                    <input type="text" id="editHour" defaultValue={showsList[index].title} style={{border: "none"}} onChange={(e) => this.onChange(e)}/>
+                    <input type="text" id="editDate" defaultValue={showsList[index].date} style={{border: "none"}} onChange={(e)=>this.onChange(e)}/>
                 </div>
                 <div className="showDateEdit">
                     <label className="showEditLabel">Godzina</label>
-                    <input type="text" id="editYear" defaultValue={showsList[index].year} style={{border: "none"}} onChange={(e) => this.onChange(e)}/>
+                    <input type="text" id="editHour" defaultValue={showsList[index].date} style={{border: "none"}} onChange={(e) => this.onChange(e)}/>
                 </div>
            
                 <div className="showEditButton">

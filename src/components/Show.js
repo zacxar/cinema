@@ -4,11 +4,12 @@ import { Button } from "react-bootstrap"
 
 const Show = props => {
     return (
+        
         <div>
             <p>Tytuł: {props.title}</p>
             <p>Rok produkcji: {props.year}</p>
             <p>Czas trwania: {props.duration}</p>
-            <p>Data i godzina: {props.date.getDate()}.{props.date.getMonth() + 1}.{props.date.getFullYear()}</p>
+            <p>Data i godzina: {props.date}</p>
             <p>Sala: {props.roomId}</p>
 
             <Button variant="primary" onClick={() => props.showEditForm(props.id)}>Edytuj Seans</Button>

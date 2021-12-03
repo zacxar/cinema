@@ -6,9 +6,10 @@ import Navbar from "./Navbar"
 import "react-confirm-alert/src/react-confirm-alert.css"
 import { NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-import AddMovie from "./AddMovie"
-import MovieClass from "./class/MovieClass"
-import Shows from "./components/Shows"
+import AddMovie from "./AddMovie";
+import MovieClass from "./class/MovieClass";
+import Shows from "./components/Shows";
+import AddShow from "./AddShow";
 
 class App extends React.Component {
     constructor(props) {
@@ -104,6 +105,7 @@ class App extends React.Component {
 
                     <Route path="/addShow"
                         //reander ekranu dodawania seansu
+                        element={<AddShow addShow={this.addShow}/>}
                     />
 
                     <Route path="/allShows"
