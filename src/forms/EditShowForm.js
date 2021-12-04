@@ -38,15 +38,15 @@ class EditShowForm extends React.Component {
         return (
             <div className="alertForm">
                 <span className="closeButton">
-                    <Icon.XLg color="black" size={18} onClick={() => onClose()}/>
+                    <Icon.XLg color="black" size={18} onClick={() => onClose}/>
                 </span>
                 <div className="showDateEdit">
                     <label className="showEditLabel">Data</label>
-                    <input type="text" id="editDate" defaultValue={showsList[index].date} style={{border: "none"}} onChange={(e)=>this.onChange(e)}/>
+                    <input type="text" id="editDate" defaultValue={showsList[index].date} style={{border: "none"}} onChange={()=>this.onChange}/>
                 </div>
                 <div className="showDateEdit">
                     <label className="showEditLabel">Godzina</label>
-                    <input type="text" id="editHour" defaultValue={showsList[index].date} style={{border: "none"}} onChange={(e) => this.onChange(e)}/>
+                    <input type="text" id="editHour" defaultValue={showsList[index].date} style={{border: "none"}} onChange={() => this.onChange}/>
                 </div>
            
                 <div className="showEditButton">

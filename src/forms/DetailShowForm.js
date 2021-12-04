@@ -6,7 +6,7 @@ const DetailShowForm = (props) => {
     return (
         <div className="alertForm">
             <span className="closeButton">
-                <Icon.XLg color="black" size={18} onClick={() => onClose()}/>
+                <Icon.XLg color="black" size={18} onClick={() => onClose}/>
             </span>
             <div className="headerDetail">
                 <div>

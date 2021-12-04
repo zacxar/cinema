@@ -4,7 +4,6 @@ import { Button } from "react-bootstrap"
 
 const Show = props => {
     return (
-        
         <div>
             <p>Tytuł: {props.title}</p>
             <p>Rok produkcji: {props.year}</p>

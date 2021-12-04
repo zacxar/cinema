@@ -22,9 +22,10 @@ class App extends React.Component {
             ],
 
             showsList : [
-                //new ShowClass(0, this.moviesList[0].title, this.state.moviesList[0].year, this.state.moviesList[0].duration, new Date(2021, 11, 23, 16, 0).toString(), 5)
             ]
         }
+
+        this.state.showsList.push(new ShowClass(0, this.state.moviesList[0].title, this.state.moviesList[0].year, this.state.moviesList[0].duration, new Date(2021, 11, 23, 16, 0).toString(), 5))
     }
 
     createNotification(message) {
@@ -62,6 +63,8 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        // const { moviesList } = this.state
+        // const { showsList } = this.state
         this.calculateMovieId()
         this.calculateShowId()
     }
@@ -103,13 +106,13 @@ class App extends React.Component {
     addShow = (s) => {
         this.calculateShowId()
         this.setState(state => {
-            if (state.title !== '' && state.year !== '' && state.duration !== '' ) {
+            //if (state.title !== '' && state.year !== '' && state.duration !== '' ) {
                 var id = this.state.lastShowId
                 var shows = state.showsList
-                let newShow = new ShowClass(id, s.date, s.hour)
+                let newShow = new ShowClass(id, s.title, s.year, s.duration, s.date, s.roomId)
                 shows.push(newShow)
                 return {showsList : shows}
-            }
+            //}
         })
     }
 
@@ -136,6 +139,8 @@ class App extends React.Component {
 
     render () {
         const { moviesList } = this.state
+        const { showsList } = this.state
+
         return (
             <Router>
                 <Navbar/>
@@ -161,11 +166,13 @@ class App extends React.Component {
                     <Route path="/addShow"
                         //reander ekranu dodawania seansu
                         //bład nie znajduje addshow
-                        element={<AddShow addShow={this.addShow}/>}
+                        element={<AddShow addShow={this.addShow}
+                            moviesList={moviesList}
+                        />}
                     />
 
                     <Route path="/allShows"
-                        element={<Shows moviesList={moviesList}
+                        element={<Shows showsList={showsList}
                             deleteShow={this.deleteShow}
                             editShow={this.editShow}
                         />}

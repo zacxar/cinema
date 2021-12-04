@@ -4,6 +4,7 @@ import { confirmAlert } from "react-confirm-alert"
 import { Navigate } from "react-router-dom"
 import Shows from "./components/Shows";
 
+
 class AddShow extends React.Component {
     constructor(props) {
         super(props)
@@ -11,8 +12,9 @@ class AddShow extends React.Component {
             title: '',
             year: '',
             duration: '',
-            date:'',
-            roomId:'',
+            date: '',
+            roomId: '',
+            selectMovieId: 0,
             redirect: false
         }
     }
@@ -25,13 +27,13 @@ class AddShow extends React.Component {
     }
 
     add = () => {
-        const { addShow } = this.props
-        const { title, year, duration, date, roomId } = this.state
+        const { addShow, moviesList } = this.props
+        const { date, roomId, selectMovieId } = this.state
 
         const body = {
-            title: title,
-            year: year,
-            duration: duration,
+            title: moviesList[selectMovieId].title,
+            year: moviesList[selectMovieId].year,
+            duration: moviesList[selectMovieId].duration,
             date: date,
             roomId: roomId
         }
@@ -44,17 +46,46 @@ class AddShow extends React.Component {
 
     render() {
         const { redirect } = this.state
+        const { moviesList } = this.props
+        
+        let today = new Date()
+        
+        let todayYear = today.getFullYear()
+        let todayMonth = today.getMonth() + 1
+        let todayDay = today.getDate()
+
+        if(todayDay < 10)
+            todayDay = '0' + todayDay
+
+        if(todayMonth < 10)
+            todayMonth = '0' + todayMonth
+
+        let todayDate = todayYear + "-" + todayMonth + "-" + todayDay
+
         if (redirect === true)
-            return <Navigate to="/addShow"/>
+            return <Navigate to="/allShows"/>
 
         return (
             <div>
                 <p>Dodaj nowy seans</p>
-                <input type="text" placeholder="Tytuł filmu" id="title" onChange={(e) => this.onChange(e)}/>
+                {/* <input type="text" placeholder="Tytuł filmu" id="title" onChange={(e) => this.onChange(e)}/>
                 <input type="text" placeholder="Rok produkcji" id="year" onChange={(e) => this.onChange(e)}/>
-                <input type="text" placeholder="Długość filmu (minuty)" id="duration" onChange={(e) => this.onChange(e)}/>
-                <input type="text" placeholder="Data i godzina" id="title" onChange={(e) => this.onChange(e)}/>
-                <input type="text" placeholder="Sala" id="year" onChange={(e) => this.onChange(e)}/>
+                <input type="text" placeholder="Długość filmu (minuty)" id="duration" onChange={(e) => this.onChange(e)}/> */}
+
+                <select id="selectMovieId" onChange={(e) => this.onChange(e)}>
+                    {moviesList.map((movie, key) => {
+                        return (
+                            <option value={key}>{movie.title}</option>
+                        )
+                    })}
+                </select>
+
+                <input type="date" id="showDate" min={todayDate}>
+                </input>
+                <p>{todayDate}</p>
+
+                <input type="text" placeholder="Data i godzina" id="date" onChange={(e) => this.onChange(e)}/>
+                <input type="text" placeholder="Sala" id="roomId" onChange={(e) => this.onChange(e)}/>
                 <Button variant="secondary" onClick={this.add}>Dodaj seans</Button>
             </div>
         )
