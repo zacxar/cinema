@@ -12,7 +12,7 @@ const Show = props => {
             <p>Godzina: {props.time}</p>
             <p>Sala: {props.roomId}</p>
             <p>Ilość miejsc: {props.seats}</p>
-
+            
             <Button variant="primary" onClick={() => props.showEditForm(props.id)}>Edytuj Seans</Button>
             <Button variant="secondary" onClick={() => props.showDeleteForm(props.id)}>Usuń Seans</Button>
             <Button variant="primary" onClick={() => props.showReservationForm(props.id)}>Kup Bilet</Button>

@@ -21,16 +21,17 @@ class ReservationForm extends React.Component {
         const { seatsArray } = this.state
         const { roomsList, showsList, index } = this.props
         const roomId = showsList[index].roomId
-
+        
         for(let i = 0; i < roomsList[roomId].rows; i++) {
             seatsArray.push(this.generateRow(i))
         }
     }
-
+    
     generateRow(rowNumber) {
-        const { seatsArray } = this.state
         const { roomsList, showsList, index } = this.props
         const roomId = showsList[index].roomId
+        const { reservedSeats } = showsList.reservedSeats
+        const { pickedSeats } = showsList.pickedSeats
 
         var ar = Array.from(Array(roomsList[roomId].seatsInRow).keys())
         
@@ -38,35 +39,17 @@ class ReservationForm extends React.Component {
             <div className="row">
                 <div className="rowMarker">{String.fromCharCode(65 + rowNumber)}</div>
                 {ar.map((seat, key) => {
-                    return <div id={rowNumber * roomsList[roomId].seatsInRow + key} className="seatdiv" onClick={() => this.onClick()}>{seat}</div>
+                    let seatId = rowNumber * roomsList[roomId].seatsInRow + key
+                    if(reservedSeats.includes())
+                    return <div id={rowNumber * roomsList[roomId].seatsInRow + key} className="seat" onClick={() => this.onClick()}>{seat}</div>
                 })}
             </div>
         )
-
-        // for(let j = 0; j < roomsList[roomId].seatsInRow; j++) {
-        //     if(j === 0) {
-        //         seatsArray.push(<div className="rowMarker">{String.fromCharCode(65 + rowNumber)}</div>)
-        //     }
-
-        //     seatsArray.push(<div id={rowNumber * roomsList[roomId].seatsInRow + j} className="seatsDiv">{j}</div>)
-        // }
-    }
-
-    renderSeats() {
-        const { seatsArray } = this.state
-        const { roomsList, showsList, index } = this.props
-        const roomId = showsList[index].roomId
-
-        for(let i = 0; i < roomsList[roomId].rows; i++) {
-            <div className="row">
-            </div>
-        }
     }
 
     render() {
         const { seatsArray } = this.state
-        const { index, onClose, showsList, roomsList } = this.props
-        const roomId = showsList[index].roomId
+        const { index, onClose, showsList } = this.props
         this.generateSeats()
         return (
             <div className="reservation">
@@ -76,6 +59,7 @@ class ReservationForm extends React.Component {
                     </span>
                     <p>Seans id = {showsList[index].id}</p>
                     <p>Sala = {showsList[index].roomId}</p>
+                    <p>Film = {showsList[index].title}</p>
                     {seatsArray.map((seat, key) => {
                         return seat
                     })}

@@ -2,8 +2,8 @@ import React from "react";
 import { Button } from "react-bootstrap"
 import { confirmAlert } from "react-confirm-alert"
 import { Navigate } from "react-router-dom"
-//import addMovie from "../styles/addMovie.css"
-import { createMovie } from "../../cinema/src/api/Api";
+// import "./styles/addMovie.css"
+import { createMovie } from "./api/Api";
 
 class AddMovie extends React.Component {
     constructor(props) {
@@ -34,7 +34,7 @@ class AddMovie extends React.Component {
             duration: duration,
             image: image
         }
-        createMovie(state.title, state.year, state.duration)
+        
         addMovie(body)
         this.setState({
             redirect: true
