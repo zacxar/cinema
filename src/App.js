@@ -11,21 +11,31 @@ import MovieClass from "./class/MovieClass";
 import Shows from "./components/Shows";
 import AddShow from "./AddShow";
 import ShowClass from "./class/ShowClass"
+import Room from "./components/Room"
+import Rooms from "./components/Rooms"
+import RoomClass from "./class/RoomClass"
 
 class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             moviesList : [
-                new MovieClass(1, "Terminator", 1980, 120),
+                new MovieClass(1, "Terminator", 1980, 120, ),
                 new MovieClass(2, "Indiana Jones", 1985, 124)
             ],
 
             showsList : [
+            ],
+
+            roomsList : [
+                new RoomClass(0, 10, 10),
+                new RoomClass(1, 12, 10),
+                new RoomClass(2, 10, 10),
+                new RoomClass(3, 10, 10)
             ]
         }
 
-        this.state.showsList.push(new ShowClass(0, this.state.moviesList[0].title, this.state.moviesList[0].year, this.state.moviesList[0].duration, new Date(2021, 11, 23, 16, 0).toString(), 5))
+        this.state.showsList.push(new ShowClass(0, this.state.moviesList[0].title, this.state.moviesList[0].year, this.state.moviesList[0].duration, "2021-12-05", "20:00", 0, 10 * 10))
     }
 
     createNotification(message) {
@@ -75,7 +85,7 @@ class App extends React.Component {
             if (state.title !== '' && state.year !== '' && state.duration !== '') {
                 var id = this.state.lastMovieId
                 var movies = state.moviesList
-                let newMovie = new MovieClass(id, s.title, s.year, s.duration)
+                let newMovie = new MovieClass(id, s.title, s.year, s.duration, s.image)
                 movies.push(newMovie)
                 return {moviesList : movies}
             }
@@ -89,6 +99,7 @@ class App extends React.Component {
             movies[index].title = s.editTitle
             movies[index].year = s.editYear
             movies[index].duration = s.editDuration
+            
 
             return { moviesList: movies }
         })
@@ -104,12 +115,13 @@ class App extends React.Component {
     }
 
     addShow = (s) => {
+        const { roomsList } = this.state
         this.calculateShowId()
         this.setState(state => {
             //if (state.title !== '' && state.year !== '' && state.duration !== '' ) {
                 var id = this.state.lastShowId
                 var shows = state.showsList
-                let newShow = new ShowClass(id, s.title, s.year, s.duration, s.date, s.roomId)
+                let newShow = new ShowClass(id, s.title, s.year, s.duration, s.date, s.time, s.roomId, roomsList[s.roomId].rows * roomsList[s.roomId].seatsInRow)
                 shows.push(newShow)
                 return {showsList : shows}
             //}
@@ -138,8 +150,7 @@ class App extends React.Component {
     }
 
     render () {
-        const { moviesList } = this.state
-        const { showsList } = this.state
+        const { moviesList, showsList, roomsList } = this.state
 
         return (
             <Router>
@@ -173,11 +184,19 @@ class App extends React.Component {
 
                     <Route path="/allShows"
                         element={<Shows showsList={showsList}
+                            roomsList={roomsList}
                             deleteShow={this.deleteShow}
                             editShow={this.editShow}
                         />}
                         //render wszystkich seansow (zarzadzanie seansami - usuwanie i edytowanie)
                     />
+                    <Route path="/allRooms"
+                        element={<Rooms roomList={this.roomList}
+                            
+                        />}
+                        //render wszystkich seansow (zarzadzanie seansami - usuwanie i edytowanie)
+                    />
+                    
                 </Routes>
 
             </Router>

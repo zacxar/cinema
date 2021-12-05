@@ -6,7 +6,7 @@ const DetailMovieForm = (props) => {
     return (
         <div className="alertForm">
             <span className="closeButton">
-                <Icon.XLg color="black" size={18} onClick={() => onClose}/>
+                <Icon.XLg color="black" size={18} onClick={() => onClose()}/>
             </span>
             <div className="headerDetail">
                 <div>
@@ -14,6 +14,9 @@ const DetailMovieForm = (props) => {
                 </div>
             </div>
             <div className="movieDetail">
+                <p>
+                <img src={moviesList[index].image} alt="image"/>
+                </p>
                 <p>Rok produkcji: {moviesList[index].year}</p>
                 <p>Czas trwania: {moviesList[index].duration}</p>
             </div>

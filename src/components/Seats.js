@@ -11,14 +11,15 @@ import EditMovieForm from "../forms/EditMovieForm"
 import DetailMovieForm from "../forms/DetailMovieForm"
 import App from "../App";
 import RoomClass from "../class/RoomClass"
+import SeatClass from "../class/SeatClass"
 
-class Rooms extends React.Component {
+class Seats extends React.Component {
     constructor(props) {
         super(props)
         this.state={
-            roomList:[
+            seatsList:[
                 
-                    new RoomClass(1, 23, 10)
+                    new SeatClass(1, 23, 10,1 )
                
             ]
         }
@@ -28,14 +29,14 @@ class Rooms extends React.Component {
         //const { roomList } = this.props
         return (
         <div>
-             <h3>Lista sal kinowych</h3>
-             {this.state.roomList.map((room, key) => {
+             <h3>Lista siedzen</h3>
+             {this.state.seatsList.map((seat, key) => {
                     return (
                         <Room
                             key={key}
-                            id={room.id}
-                            iloscMiejsc={room.iloscMiejsc}
-                            iloscWolnychMiejsc={room.iloscWolnychMiejsc}
+                            id={seat.id}
+                            iloscMiejsc={seat.iloscMiejsc}
+                            iloscWolnychMiejsc={seat.iloscWolnychMiejsc}
                            
                         />
                     )
@@ -45,4 +46,4 @@ class Rooms extends React.Component {
     }
 }
 
-export default Rooms
+export default Seats

@@ -8,11 +8,14 @@ const Show = props => {
             <p>Tytuł: {props.title}</p>
             <p>Rok produkcji: {props.year}</p>
             <p>Czas trwania: {props.duration}</p>
-            <p>Data i godzina: {props.date}</p>
+            <p>Data: {props.date}</p>
+            <p>Godzina: {props.time}</p>
             <p>Sala: {props.roomId}</p>
+            <p>Ilość miejsc: {props.seats}</p>
 
             <Button variant="primary" onClick={() => props.showEditForm(props.id)}>Edytuj Seans</Button>
             <Button variant="secondary" onClick={() => props.showDeleteForm(props.id)}>Usuń Seans</Button>
+            <Button variant="primary" onClick={() => props.showReservationForm(props.id)}>Kup Bilet</Button>
         </div>
     )
 }

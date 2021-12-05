@@ -42,11 +42,11 @@ class EditShowForm extends React.Component {
                 </span>
                 <div className="showDateEdit">
                     <label className="showEditLabel">Data</label>
-                    <input type="text" id="editDate" defaultValue={showsList[index].date} style={{border: "none"}} onChange={()=>this.onChange}/>
+                    <input type="text" id="editDate" defaultValue={showsList[index].date} style={{border: "none"}} onChange={(e) => this.onChange(e)}/>
                 </div>
                 <div className="showDateEdit">
                     <label className="showEditLabel">Godzina</label>
-                    <input type="text" id="editHour" defaultValue={showsList[index].date} style={{border: "none"}} onChange={() => this.onChange}/>
+                    <input type="text" id="editHour" defaultValue={showsList[index].date} style={{border: "none"}} onChange={(e) => this.onChange(e)}/>
                 </div>
            
                 <div className="showEditButton">

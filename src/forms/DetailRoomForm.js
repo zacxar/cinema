@@ -1,8 +1,8 @@
 import React from "react";
 import * as Icon from "react-bootstrap-icons"
 
-const DetailShowForm = (props) => {
-    const { showsList, index, onClose } = props;
+const DetailRoomForm = (props) => {
+    const { roomList, index, onClose } = props;
     return (
         <div className="alertForm">
             <span className="closeButton">
@@ -10,15 +10,17 @@ const DetailShowForm = (props) => {
             </span>
             <div className="headerDetail">
                 <div>
-                    <h3>Tytuł: {showsList[index].title}</h3>
+                    <h3>Nr sali: {roomList[index].id}</h3>
                 </div>
             </div>
-            <div className="showsDetail">
-                <p>Data seansu: {showsList[index].date}</p>
-                <p>Godzina sansu: {showsList[index].hour}</p>
+            <div className="roomDetail">
+                
+                <p>Ilość miejsc: {roomList[index].iloscMiejsc}</p>
+                <p> Ilość Wolnych Miejsc: {roomList[index].iloscWolnychMiejsc}</p>
+            
             </div>
         </div>
     )
 }
 
-export default DetailShowForm
+export default DetailRoomForm

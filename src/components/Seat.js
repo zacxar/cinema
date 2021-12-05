@@ -2,12 +2,12 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Button } from "react-bootstrap"
 
-const Room = props => {
+const Seat = props => {
     return (
         <div>
-            <p>Nr sali: {props.roomId}</p>
-            <p>Ilość miejsc: {props.iloscMiejsc}</p>
-            <p>Ilość wolnych miejsc: {props.iloscWolnychMiejsc}</p>
+            <p>Nr siedzenia: {props.seatId}</p>
+            <p>Nr rzedu: {props.nrRzedu}</p>
+            {/* <p>Ilość : {props.iloscWolnychMiejsc}</p> */}
             {/* <p>Ilosc zajetych miejsc: {props.iloscMiejsc-props.iloscWolnychMiejsc}</p> */}
             
 
@@ -17,10 +17,10 @@ const Room = props => {
     )
 }
 
-Room.propTypes = {
-    roomId: PropTypes.number.isRequired,
-    iloscMiejsc: PropTypes.number.isRequired,
-    iloscWolnychMiejsc:PropTypes.number
+Seat.propTypes = {
+    seatId: PropTypes.number.isRequired,
+    nrRzedu: PropTypes.number.isRequired,
+   // iloscWolnychMiejsc:PropTypes.number
    
 }
 
@@ -30,4 +30,4 @@ Room.propTypes = {
 //     duration: 0
 // }
 
-export default Room
+export default Seat

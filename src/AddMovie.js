@@ -10,6 +10,7 @@ class AddMovie extends React.Component {
             title: '',
             year: '',
             duration: '',
+            image:'',
             redirect: false
         }
     }
@@ -23,12 +24,13 @@ class AddMovie extends React.Component {
 
     add = () => {
         const { addMovie } = this.props
-        const { title, year, duration } = this.state
+        const { title, year, duration, image } = this.state
 
         const body = {
             title: title,
             year: year,
-            duration: duration
+            duration: duration,
+            image: image
         }
 
         addMovie(body)
@@ -41,10 +43,14 @@ class AddMovie extends React.Component {
         const { redirect } = this.state
         if (redirect === true)
             return <Navigate to="/allMovies"/>
+           // let sciezka
 
         return (
             <div>
                 <p>Dodaj nowy film</p>
+                <input type="text" placeholder="Plakat" id="image" onChange={(e) => this.onChange(e)}  />
+                
+                
                 <input type="text" placeholder="Tytuł filmu" id="title" onChange={(e) => this.onChange(e)}/>
                 <input type="text" placeholder="Rok produkcji" id="year" onChange={(e) => this.onChange(e)}/>
                 <input type="text" placeholder="Długość filmu (minuty)" id="duration" onChange={(e) => this.onChange(e)}/>

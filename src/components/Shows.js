@@ -9,6 +9,7 @@ import DeleteShowForm from "../forms/DeleteShowForm"
 import ShowClass from "../class/ShowClass"
 import EditShowForm from "../forms/EditShowForm"
 import AddShow from "../AddShow";
+import ReservationForm from "../forms/ReservationForm"
 
 class Shows extends React.Component {
     constructor(props){
@@ -66,6 +67,24 @@ class Shows extends React.Component {
         })
     }
     
+    showReservationForm = (id) => {
+        const { showsList, roomsList } = this.props
+        var index = showsList.findIndex(function (value) {
+            return value.id === id;
+        })
+
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div>
+                        <ReservationForm showsList={showsList} roomsList={roomsList} index={index} onClose={onClose}/>
+                        <NotificationContainer/>
+                    </div>
+                )
+            }
+        })
+    }
+
     render() {
         const { showsList } = this.props
         return (
@@ -80,10 +99,13 @@ class Shows extends React.Component {
                             year={show.year}
                             duration={show.duration}
                             date={show.date}
+                            time={show.time}
                             roomId={show.roomId}
+                            seats={show.seats}
                             showDetailForm={this.showDetailForm}
                             showEditForm={this.showEditForm}
                             showDeleteForm={this.showDeleteForm}
+                            showReservationForm={this.showReservationForm}
                         />
                     )
                 })}

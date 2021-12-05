@@ -8,6 +8,7 @@ const Movie = props => {
             <p>Tytuł: {props.title}</p>
             <p>Rok produkcji: {props.year}</p>
             <p>Czas trwania: {props.duration}</p>
+            <p>{props.image}</p>
 
             <Button variant="secondary" onClick={() => props.showEditForm(props.id)}>Edytuj Film</Button>
             <Button variant="secondary" onClick={() => props.showDeleteForm(props.id)}>Usuń Film</Button>
@@ -16,9 +17,10 @@ const Movie = props => {
 }
 
 Movie.propTypes = {
-    title: PropTypes.string,
-    year: PropTypes.number,
-    duration: PropTypes.number
+    title: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    duration: PropTypes.number.isRequired
+    //image: PropTypes
 }
 
 // Movie.defaultProps = {

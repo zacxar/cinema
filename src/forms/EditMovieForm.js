@@ -24,19 +24,19 @@ class EditMovieForm extends React.Component {
         return (
             <div className="alertForm">
                 <span className="closeButton">
-                    <Icon.XLg color="black" size={18} onClick={() => onClose}/>
+                    <Icon.XLg color="black" size={18} onClick={() => onClose()}/>
                 </span>
                 <div className="movieTitleEdit">
                     <label className="movieEditLabel">Tytuł</label>
-                    <input type="text" id="editTitle" defaultValue={moviesList[index].title} style={{border: "none"}} onChange={() => this.onChange}/>
+                    <input type="text" id="editTitle" defaultValue={moviesList[index].title} style={{border: "none"}} onChange={(e) => this.onChange(e)}/>
                 </div>
                 <div className="movieYearEdit">
                     <label className="movieEditLabel">Rok produkcji</label>
-                    <input type="text" id="editYear" defaultValue={moviesList[index].year} style={{border: "none"}} onChange={() => this.onChange}/>
+                    <input type="text" id="editYear" defaultValue={moviesList[index].year} style={{border: "none"}} onChange={(e) => this.onChange(e)}/>
                 </div>
                 <div className="movieDurationEdit">
                     <label className="movieEditLabel">Czas trwania</label>
-                    <input type="text" id="editDuration" defaultValue={moviesList[index].duration} style={{border: "none"}} onChange={() => this.onChange}/>
+                    <input type="text" id="editDuration" defaultValue={moviesList[index].duration} style={{border: "none"}} onChange={(e) => this.onChange(e)}/>
                 </div>
                 <div className="movieEditButton">
                     <Button variant="primary" onClick={() => editMovie(index, this.state)}>Zapisz</Button>

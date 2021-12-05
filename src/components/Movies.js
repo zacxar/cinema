@@ -78,6 +78,7 @@ class Movies extends React.Component {
                             title={movie.title}
                             year={movie.year}
                             duration={movie.duration}
+                            image={movie.image}
                             showDetailForm={this.showDetailForm}
                             showEditForm={this.showEditForm}
                             showDeleteForm={this.showDeleteForm}
