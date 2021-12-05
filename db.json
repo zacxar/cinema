@@ -1,0 +1,37 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": [{
+    "name": "typicode"
+  }],
+  "movies":[{
+    "id": 4,
+      "title": "Kapitan",
+      "year": 3,
+      "duration": "4"
+  }],
+  "rooms":[
+    {
+      "id":1
+    }
+  ],
+  "shows":[
+    {
+      "id":1
+    }
+  ]
+
+  
+}

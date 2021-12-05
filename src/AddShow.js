@@ -4,6 +4,7 @@ import { confirmAlert } from "react-confirm-alert"
 import { Navigate } from "react-router-dom"
 import Shows from "./components/Shows";
 
+
 class AddShow extends React.Component {
     constructor(props) {
         super(props)
@@ -69,7 +70,7 @@ class AddShow extends React.Component {
             return <Navigate to="/allShows"/>
 
         return (
-            <div>
+            <div class="addShow">
                <p>Dodaj nowy seans</p>
                 {/* <input type="text" placeholder="Tytuł filmu" id="title" onChange={(e) => this.onChange(e)}/>
                 <input type="text" placeholder="Rok produkcji" id="year" onChange={(e) => this.onChange(e)}/>

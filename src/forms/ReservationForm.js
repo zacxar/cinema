@@ -38,7 +38,7 @@ class ReservationForm extends React.Component {
             <div className="row">
                 <div className="rowMarker">{String.fromCharCode(65 + rowNumber)}</div>
                 {ar.map((seat, key) => {
-                    return <div id={rowNumber * roomsList[roomId].seatsInRow + key} className="seatdiv">{seat}</div>
+                    return <div id={rowNumber * roomsList[roomId].seatsInRow + key} className="seatdiv" onClick={() => this.onClick()}>{seat}</div>
                 })}
             </div>
         )

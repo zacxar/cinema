@@ -15,6 +15,7 @@
 
 .rowMarker {
     background-color: red;
+    margin-left: 10;
 }
 
 .seatdiv {
@@ -28,4 +29,5 @@
     font-style: white;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+
 }

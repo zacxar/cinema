@@ -2,6 +2,8 @@ import React from "react";
 import { Button } from "react-bootstrap"
 import { confirmAlert } from "react-confirm-alert"
 import { Navigate } from "react-router-dom"
+//import addMovie from "../styles/addMovie.css"
+import { createMovie } from "../../cinema/src/api/Api";
 
 class AddMovie extends React.Component {
     constructor(props) {
@@ -25,14 +27,14 @@ class AddMovie extends React.Component {
     add = () => {
         const { addMovie } = this.props
         const { title, year, duration, image } = this.state
-
+       
         const body = {
             title: title,
             year: year,
             duration: duration,
             image: image
         }
-
+        createMovie(state.title, state.year, state.duration)
         addMovie(body)
         this.setState({
             redirect: true
@@ -46,7 +48,7 @@ class AddMovie extends React.Component {
            // let sciezka
 
         return (
-            <div>
+            <div className="add">
                 <p>Dodaj nowy film</p>
                 <input type="text" placeholder="Plakat" id="image" onChange={(e) => this.onChange(e)}  />
                 

@@ -1,5 +1,6 @@
 import React from "react";
 import * as Icon from "react-bootstrap-icons"
+//import movieDetail from "../styles/movieDetail"
 
 const DetailMovieForm = (props) => {
     const { moviesList, index, onClose } = props;

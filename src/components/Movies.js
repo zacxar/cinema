@@ -10,6 +10,7 @@ import DeleteMovieForm from "../forms/DeleteMovieForm"
 import EditMovieForm from "../forms/EditMovieForm"
 import DetailMovieForm from "../forms/DetailMovieForm"
 
+
 class Movies extends React.Component {
     constructor(props) {
         super(props)
