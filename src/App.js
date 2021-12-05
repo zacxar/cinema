@@ -14,13 +14,16 @@ import ShowClass from "./class/ShowClass"
 import Room from "./components/Room"
 import Rooms from "./components/Rooms"
 import RoomClass from "./class/RoomClass"
+import { createMovie } from "./api/Api";
+import {createShow} from "./api/Api"
+// import "./styles/app.css"
 
 class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             moviesList : [
-                new MovieClass(1, "Terminator", 1980, 120, ),
+                new MovieClass(1, "Terminator", 1980, 120),
                 new MovieClass(2, "Indiana Jones", 1985, 124)
             ],
 
@@ -87,6 +90,7 @@ class App extends React.Component {
                 var movies = state.moviesList
                 let newMovie = new MovieClass(id, s.title, s.year, s.duration, s.image)
                 movies.push(newMovie)
+                createMovie(id, s.title, s.year, s.duration)
                 return {moviesList : movies}
             }
         })
@@ -122,6 +126,7 @@ class App extends React.Component {
                 var id = this.state.lastShowId
                 var shows = state.showsList
                 let newShow = new ShowClass(id, s.title, s.year, s.duration, s.date, s.time, s.roomId, roomsList[s.roomId].rows * roomsList[s.roomId].seatsInRow)
+                createShow(id, s.title, s.year, s.duration, s.date, s.time, s.roomId, roomsList[s.roomId].rows * roomsList[s.roomId].seatsInRow)
                 shows.push(newShow)
                 return {showsList : shows}
             //}
