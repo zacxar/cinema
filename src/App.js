@@ -83,7 +83,7 @@ class App extends React.Component {
     }
 
     addMovie = (s) => {
-        this.calculateMovieId()
+        //this.calculateMovieId()
         this.setState(state => {
             if (state.title !== '' && state.year !== '' && state.duration !== '') {
                 var id = this.state.lastMovieId
@@ -91,6 +91,7 @@ class App extends React.Component {
                 let newMovie = new MovieClass(id, s.title, s.year, s.duration, s.image)
                 movies.push(newMovie)
                 createMovie(id, s.title, s.year, s.duration)
+                console.log(newMovie.id)
                 return {moviesList : movies}
             }
         })

@@ -17,6 +17,16 @@ class ReservationForm extends React.Component {
         }
     }
 
+    onClick(e) {
+        const seat = e.target
+
+        if(seat.className === "seat")
+            seat.className = "seatPicked"
+        // else if(seat.className === "seatReserved")
+        else if(seat.className === "seatPicked")
+            seat.className = "seat"
+    }
+
     generateSeats() {
         const { seatsArray } = this.state
         const { roomsList, showsList, index } = this.props
@@ -30,8 +40,8 @@ class ReservationForm extends React.Component {
     generateRow(rowNumber) {
         const { roomsList, showsList, index } = this.props
         const roomId = showsList[index].roomId
-        const { reservedSeats } = showsList.reservedSeats
-        const { pickedSeats } = showsList.pickedSeats
+        // const { reservedSeats } = showsList[index].reservedSeats
+        // const { pickedSeats } = showsList[index].pickedSeats
 
         var ar = Array.from(Array(roomsList[roomId].seatsInRow).keys())
         
@@ -40,8 +50,12 @@ class ReservationForm extends React.Component {
                 <div className="rowMarker">{String.fromCharCode(65 + rowNumber)}</div>
                 {ar.map((seat, key) => {
                     let seatId = rowNumber * roomsList[roomId].seatsInRow + key
-                    if(reservedSeats.includes())
-                    return <div id={rowNumber * roomsList[roomId].seatsInRow + key} className="seat" onClick={() => this.onClick()}>{seat}</div>
+                    if(showsList[index].reservedSeats.includes(seatId))
+                        return <div id={rowNumber * roomsList[roomId].seatsInRow + key} className="seatReserved">{seat}</div>
+                    else if(showsList[index].pickedSeats.includes(seatId))
+                        return <div id={rowNumber * roomsList[roomId].seatsInRow + key} className="seatPicked" onClick={(e) => this.onClick(e)}>{seat}</div>
+                    else
+                        return <div id={rowNumber * roomsList[roomId].seatsInRow + key} className="seat" onClick={(e) => this.onClick(e)}>{seat}</div>
                 })}
             </div>
         )
@@ -57,9 +71,13 @@ class ReservationForm extends React.Component {
                     <span className="closeButton">
                         <Icon.XLg color="black" size={18} onClick={() => onClose()}/>
                     </span>
-                    <p>Seans id = {showsList[index].id}</p>
-                    <p>Sala = {showsList[index].roomId}</p>
-                    <p>Film = {showsList[index].title}</p>
+                    <div className="showInfo">
+                        <p>Sala nr {showsList[index].roomId}</p>
+                        <p>Film = {showsList[index].title}</p>
+                        <div className="seatInfo"></div>Wolne miejsce
+                        <div className="reservedInfo">Zarezerwowane miejsce</div>
+                        <div className="pickedInfo">Wybrane miejsce</div>
+                    </div>
                     {seatsArray.map((seat, key) => {
                         return seat
                     })}

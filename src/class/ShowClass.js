@@ -8,8 +8,8 @@ class ShowClass {
         this.time = time
         this.roomId = roomId
         this.seats = seats
-        this.reservedSeats = new Array(0)
-        this.pickedSeats = new Array(0)
+        this.reservedSeats = []
+        this.pickedSeats = []
     }
 }
 
