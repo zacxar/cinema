@@ -12,7 +12,7 @@ class AddMovie extends React.Component {
             title: '',
             year: '',
             duration: '',
-            image:'',
+            //image:'',
             redirect: false
         }
     }
@@ -32,7 +32,7 @@ class AddMovie extends React.Component {
             title: title,
             year: year,
             duration: duration,
-            image: image
+            //image: image
         }
         
         addMovie(body)
@@ -50,7 +50,7 @@ class AddMovie extends React.Component {
         return (
             <div className="add">
                 <p>Dodaj nowy film</p>
-                <input type="text" placeholder="Plakat" id="image" onChange={(e) => this.onChange(e)}  />
+                {/* <input type="text" placeholder="Plakat" id="image" onChange={(e) => this.onChange(e)}  /> */}
                 
                 
                 <input type="text" placeholder="Tytuł filmu" id="title" onChange={(e) => this.onChange(e)}/>

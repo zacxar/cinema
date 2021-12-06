@@ -1,105 +1,82 @@
 import axios from 'axios'
 
-export const createMovie=async(id, title, year, duration)=>{
-    return await axios.post('http://localhost:7001/movies',
+
+
+const url = 'http://localhost:3004/'
+//movie
+
+
+export const createMovie=async(movie)=>{
+    return await axios.post(url+'movies',
     {
-        id:id,
-        title: title,
-        year: year,
-        duration: duration,
+       // id:movie.id,
+        title : movie.title,
+        year :movie.year,
+        duration : movie.duration
         
     })
     .then((response)=>{return response.data})
-    .catch((error)=>console.log(error))
-
-
-    
-}
-export const YearAsMovie=async(year)=>{
-    return await axios.get('http://localhost:3004/movies?',
-    {
-        params:{
-            year:year
-        }
-    })
-    .then((response)=>{return response.data})
-    .catch((error)=>console.log(error))
+    .catch((error)=>console.log(error))  
 }
 
-export const editMovie=async(id,title, year, duration)=>{
-    return await axios.put('http://localhost:3004/movies',
-    {
-        id:id,
-        title: title,
-        year: year,
-        duration: duration,
-    })
-    .then((response)=>{return response.data})
-    .catch((error)=>console.log(error))
-    
+export const getMovie=async()=>{
+    let data=[]
+    await axios.get(url+'movies').then((response)=>{
+        data=response.data}).catch((error)=>{
+        return error})
+        return data
 }
-export const deleteMovie=async(id)=>{
+
+export const deleteM=async(id)=>{
     console.log(id)
-    return await axios.delete('http://localhost:3004/movies',
-    {
-        id:id,
-        
-        
-    })
+return await axios.delete(url+'movies/'+id)
     .then((response)=>{return response.data})
     .catch((error)=>console.log(error))
     
 }
 
-
-export const createShow=async(id, title, year, duration, date, time, roomId, seats)=>{
-    return await axios.post('http://localhost:3004/shows',
-    {
-        id:id,
-        title: title,
-        year: year,
-        duration: duration,
-        date: date,
-        time:time,
-        roomId: roomId,
-        seats:seats,
-    })
+export const editM=async(movie)=>{
+    return await axios.put(url+'movies/'+movie.id, movie)
     .then((response)=>{return response.data})
     .catch((error)=>console.log(error))
     
 }
 
-export const titleAsShow=async(id, title, year, duration, date, time, roomId, seats)=>{
-    return await axios.get('http://localhost:3004/shows?',
+//show
+export const createShow=async(show)=>{
+    return await axios.post(url+'shows',
     {
-        params:{
-            id:id,
-            title:title,
-            year:year,
-            duration:duration,
-            date: date,
-            time:time,
-            roomId:roomId,
-            seats:seats
-        }
-    })
-    .then((response)=>{ 
-        console.log(response)
-        return response.data})
-    .catch((error)=>console.log(error))
-}
-
-
-export const titleAsMovie=async(id, title, year, duration)=>{
-    return await axios.get('http://localhost:7001/movies?',
-    {
-        params:{
-            id:id,
-            title:title,
-            year:year,
-            duration:duration
-        }
+       // id:movie.id,
+        title : movie.title,
+        year :movie.year,
+        duration : movie.duration,
+        date: show.date,
+        time: show.time,
+        roomId: show.roomId,
+        seats: show.seats
+        
     })
     .then((response)=>{return response.data})
+    .catch((error)=>console.log(error))  
+}
+export const getShow=async()=>{
+    let data=[]
+    await axios.get(url+'shows').then((response)=>{
+        data=response.data}).catch((error)=>{
+        return error})
+        return data
+}
+
+export const deleteS=async(id)=>{
+    console.log(id)
+return await axios.delete(url+'shows/'+id)
+    .then((response)=>{return response.data})
     .catch((error)=>console.log(error))
+    
+}
+export const editS=async(show)=>{
+    return await axios.put(url+'shows/'+show.id, show)
+    .then((response)=>{return response.data})
+    .catch((error)=>console.log(error))
+    
 }

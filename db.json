@@ -20,26 +20,16 @@
   ],
   "movies": [
     {
-      "id": 4,
-      "title": "Kapitan",
-      "year": 3,
-      "duration": "4"
+      "title": "f1",
+      "year": "1",
+      "duration": "1",
+      "id": 1
     },
     {
-      "id": "ad",
-      "title": "123",
-      "year": "123"
-    },
-    {
-      "id": 3,
-      "title": "ad",
-      "year": "123",
-      "duration": "123"
-    },
-    {
-      "id": "asd",
-      "title": "123",
-      "year": "123"
+      "title": "f3",
+      "year": "1",
+      "duration": "1",
+      "id": 3
     }
   ],
   "rooms": [

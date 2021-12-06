@@ -4,7 +4,7 @@ class MovieClass {
         this.title = title
         this.year = year
         this.duration = duration
-        this.image = image
+        //this.image = image
     }
 }
 

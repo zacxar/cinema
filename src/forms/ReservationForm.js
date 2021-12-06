@@ -45,8 +45,6 @@ class ReservationForm extends React.Component {
     generateRow(rowNumber) {
         const { roomsList, showsList, index } = this.props
         const roomId = showsList[index].roomId
-        // const { reservedSeats } = showsList[index].reservedSeats
-        // const { pickedSeats } = showsList[index].pickedSeats
 
         var ar = Array.from(Array(roomsList[roomId].seatsInRow).keys())
         

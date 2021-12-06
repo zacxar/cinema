@@ -15,7 +15,10 @@ import Room from "./components/Room"
 import Rooms from "./components/Rooms"
 import RoomClass from "./class/RoomClass"
 import { createMovie } from "./api/Api";
-import {createShow} from "./api/Api"
+import { createShow } from "./api/Api"
+import { getMovie } from "./api/Api"
+import { deleteM } from "./api/Api"
+import { editM } from "./api/Api"
 // import "./styles/app.css"
 
 class App extends React.Component {
@@ -23,8 +26,8 @@ class App extends React.Component {
         super(props)
         this.state = {
             moviesList : [
-                new MovieClass(1, "Terminator", 1980, 120),
-                new MovieClass(2, "Indiana Jones", 1985, 124)
+              //  new MovieClass(1, "Terminator", 1980, 120),
+              //  new MovieClass(2, "Indiana Jones", 1985, 124)
             ],
 
             showsList : [
@@ -38,7 +41,7 @@ class App extends React.Component {
             ]
         }
 
-        this.state.showsList.push(new ShowClass(0, this.state.moviesList[0].title, this.state.moviesList[0].year, this.state.moviesList[0].duration, "2021-12-05", "20:00", 0, 10 * 10))
+   //     this.state.showsList.push(new ShowClass(0, this.state.moviesList[0].title, this.state.moviesList[0].year, this.state.moviesList[0].duration, "2021-12-05", "20:00", 0, 10 * 10))
     }
 
     createNotification(message) {
@@ -83,15 +86,16 @@ class App extends React.Component {
     }
 
     addMovie = (s) => {
-        //this.calculateMovieId()
+        this.calculateMovieId()
         this.setState(state => {
             if (state.title !== '' && state.year !== '' && state.duration !== '') {
                 var id = this.state.lastMovieId
                 var movies = state.moviesList
-                let newMovie = new MovieClass(id, s.title, s.year, s.duration, s.image)
+                let newMovie = new MovieClass(id, s.title, s.year, s.duration) /*, s.image*/
                 movies.push(newMovie)
-                createMovie(id, s.title, s.year, s.duration)
+                createMovie(s)
                 console.log(newMovie.id)
+                this.calculateMovieId()
                 return {moviesList : movies}
             }
         })
@@ -105,16 +109,20 @@ class App extends React.Component {
             movies[index].year = s.editYear
             movies[index].duration = s.editDuration
             
-
+            editM(s)
             return { moviesList: movies }
         })
         this.createNotification("Zedytowano film")
     }
 
+    //1 2 3 4 5 6 7
+    //1 2 3 4 6 7 8
     deleteMovie = (index) => {
         this.setState(state => {
             var movies = state.moviesList
+            deleteM(movies[index].id)
             movies.splice(index, 1)
+            movies = getMovie()
             return { moviesList: movies }
         })
     }
