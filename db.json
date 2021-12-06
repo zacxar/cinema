@@ -50,6 +50,16 @@
   "shows": [
     {
       "id": 1
+    },
+    {
+      "id": 61,
+      "title": "Terminator",
+      "year": 1980,
+      "duration": 120,
+      "date": "",
+      "time": "03:03",
+      "roomId": "1",
+      "seats": 120
     }
   ]
 }

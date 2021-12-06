@@ -127,7 +127,7 @@ class App extends React.Component {
                 var id = this.state.lastShowId
                 var shows = state.showsList
                 let newShow = new ShowClass(id, s.title, s.year, s.duration, s.date, s.time, s.roomId, roomsList[s.roomId].rows * roomsList[s.roomId].seatsInRow)
-                createShow(id, s.title, s.year, s.duration, s.date, s.time, s.roomId, roomsList[s.roomId].rows * roomsList[s.roomId].seatsInRow)
+                createShow(61, s.title, s.year, s.duration, s.date, s.time, s.roomId, roomsList[s.roomId].rows * roomsList[s.roomId].seatsInRow)
                 shows.push(newShow)
                 return {showsList : shows}
             //}
