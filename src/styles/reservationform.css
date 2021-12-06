@@ -29,18 +29,6 @@
     text-align: center;
 }
 
-.seat {
-    background-color: #444451;
-    border-color: black;
-    height: 26px;
-    width: 32px;
-    margin: 3px;
-    font-size: 25px;
-    font-style: white;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
 .seat:hover {
     cursor: default;
     transform: scale(1.25);
@@ -51,6 +39,12 @@
 }
 
 .seatInfo {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.seatInfoAvailable {
     background-color: #444451;
     border-color: black;
     height: 26px;
@@ -62,7 +56,7 @@
     border-top-right-radius: 10px;
 }
 
-.pickedInfo {
+.seatInfoPicked {
     color: black;
     background-color: white;
     height: 26px;
@@ -75,7 +69,7 @@
     text-align: center;
 }
 
-.reservedInfo {
+.seatInfoReserved {
     background-color: red;
     height: 26px;
     width: 32px;
@@ -85,6 +79,22 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     text-align: center;
+}
+
+.seatInfo p {
+    /* padding-left: 10px; */
+}
+
+.seat {
+    background-color: #444451;
+    border-color: black;
+    height: 26px;
+    width: 32px;
+    margin: 3px;
+    font-size: 25px;
+    font-style: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .seatPicked {

@@ -19,12 +19,17 @@ class ReservationForm extends React.Component {
 
     onClick(e) {
         const seat = e.target
-
-        if(seat.className === "seat")
+        const { showsList, index } = this.props
+        
+        if(seat.className === "seat") {
             seat.className = "seatPicked"
-        // else if(seat.className === "seatReserved")
-        else if(seat.className === "seatPicked")
+            showsList[index].pickedSeats.push(seat.id)
+        }
+        else if(seat.className === "seatPicked") {
             seat.className = "seat"
+
+        }
+        
     }
 
     generateSeats() {
@@ -74,9 +79,18 @@ class ReservationForm extends React.Component {
                     <div className="showInfo">
                         <p>Sala nr {showsList[index].roomId}</p>
                         <p>Film = {showsList[index].title}</p>
-                        <div className="seatInfo"></div>Wolne miejsce
-                        <div className="reservedInfo">Zarezerwowane miejsce</div>
-                        <div className="pickedInfo">Wybrane miejsce</div>
+                        <div className="seatInfo">
+                            <div class="seatInfoAvailable"></div>
+                            <p>Wolne miejsce</p>
+                        </div>
+                        <div className="seatInfo">
+                            <div class="seatInfoPicked"></div>
+                            <p>Wybrane miejsce</p>
+                        </div>
+                        <div className="seatInfo">
+                            <div class="seatInfoReserved"></div>
+                            <p>Zarezerwowane miejsce</p>
+                        </div>
                     </div>
                     {seatsArray.map((seat, key) => {
                         return seat
