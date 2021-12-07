@@ -11,25 +11,48 @@ class ReservationForm extends React.Component {
         super(props)
         this.state = {
             seatsList : [],
-            seatsArray : [
-              //  new SeatClass(1, 23, 10,1 )
-            ]
+            seatsArray : [],
+            pickedSeats : [],
+            reservedSeats : []
         }
     }
 
     onClick(e) {
         const seat = e.target
-        const { showsList, index } = this.props
-        
+        const { pickedSeats } = this.state
+
         if(seat.className === "seat") {
+            let seats = this.state.pickedSeats
             seat.className = "seatPicked"
-            showsList[index].pickedSeats.push(seat.id)
+            seats.push(seat.id)
+            console.log("dodaj " + seat.id)
+            return {pickedSeats : seats}
         }
         else if(seat.className === "seatPicked") {
             seat.className = "seat"
-
+            let id = pickedSeats.findIndex(function(value) {
+                return value.id === seat.id
+            })
+            pickedSeats.splice(id, 1)
+            console.log("usun " + seat.id)
         }
-        
+    }
+
+    handleReservation() {
+        const { pickedSeats } = this.state
+        const { showsList, index } = this.props
+
+        for(let seat of pickedSeats) {
+            if(!showsList[index].reservedSeats.includes(seat)) {
+                showsList[index].reservedSeats.push(seat)
+                document.getElementById(seat).className = "seatReserved"
+                console.log("rezerwacja " + seat)
+            }
+        }
+        for(let s of showsList[index].reservedSeats) {
+            console.log("r = " + s)
+        }
+        pickedSeats.length = 0
     }
 
     generateSeats() {
@@ -44,6 +67,7 @@ class ReservationForm extends React.Component {
     
     generateRow(rowNumber) {
         const { roomsList, showsList, index } = this.props
+        const { pickedSeats } = this.state
         const roomId = showsList[index].roomId
 
         var ar = Array.from(Array(roomsList[roomId].seatsInRow).keys())
@@ -53,12 +77,12 @@ class ReservationForm extends React.Component {
                 <div className="rowMarker">{String.fromCharCode(65 + rowNumber)}</div>
                 {ar.map((seat, key) => {
                     let seatId = rowNumber * roomsList[roomId].seatsInRow + key
-                    if(showsList[index].reservedSeats.includes(seatId))
-                        return <div id={rowNumber * roomsList[roomId].seatsInRow + key} className="seatReserved">{seat}</div>
-                    else if(showsList[index].pickedSeats.includes(seatId))
-                        return <div id={rowNumber * roomsList[roomId].seatsInRow + key} className="seatPicked" onClick={(e) => this.onClick(e)}>{seat}</div>
+                    if(showsList[index].reservedSeats.includes("seat" + (seatId)))
+                        return <div id={"seat" + (seatId)} className="seatReserved">{seat}</div>
+                    else if(pickedSeats.includes("seat" + (seatId)))
+                        return <div id={"seat" + (seatId)} className="seatPicked" onClick={(e) => this.onClick(e)}>{seat}</div>
                     else
-                        return <div id={rowNumber * roomsList[roomId].seatsInRow + key} className="seat" onClick={(e) => this.onClick(e)}>{seat}</div>
+                        return <div id={"seat" + (seatId)} className="seat" onClick={(e) => this.onClick(e)}>{seat}</div>
                 })}
             </div>
         )
@@ -93,6 +117,7 @@ class ReservationForm extends React.Component {
                     {seatsArray.map((seat, key) => {
                         return seat
                     })}
+                    <Button variant="primary" onClick={() => this.handleReservation()}>Kup Bilety</Button>
                 </div>
             </div>
         )

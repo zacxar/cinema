@@ -9,7 +9,6 @@ class ShowClass {
         this.roomId = roomId
         this.seats = seats
         this.reservedSeats = []
-        this.pickedSeats = []
     }
 }
 

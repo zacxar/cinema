@@ -1,10 +1,7 @@
 import axios from 'axios'
 
-
-
 const url = 'http://localhost:3004/'
 //movie
-
 
 export const createMovie=async(movie)=>{
     return await axios.post(url+'movies',
@@ -21,10 +18,28 @@ export const createMovie=async(movie)=>{
 
 export const getMovie=async()=>{
     let data=[]
-    await axios.get(url+'movies').then((response)=>{
-        data=response.data}).catch((error)=>{
-        return error})
+   
+    return await axios.get(url+'movies')
+    .then((response)=>{
+        data=response.data
         return data
+        //console.log(data)
+        })
+    .catch((error)=>{
+            return error})
+        
+}
+
+export const getMovieById=async(id)=>{
+  
+    return await axios.get(url + "movies/" + id)
+        .then((response) => {
+            console.log(id)
+            return response.data
+        })
+        .catch((error) => {
+            return error
+        })
 }
 
 export const deleteM=async(id)=>{
@@ -47,9 +62,9 @@ export const createShow=async(show)=>{
     return await axios.post(url+'shows',
     {
        // id:movie.id,
-        title : movie.title,
-        year :movie.year,
-        duration : movie.duration,
+        title : show.title,
+        year :show.year,
+        duration : show.duration,
         date: show.date,
         time: show.time,
         roomId: show.roomId,

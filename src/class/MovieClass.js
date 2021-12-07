@@ -1,5 +1,5 @@
 class MovieClass {
-    constructor(id, title, year, duration, image) {
+    constructor(id, title, year, duration) {
         this.id = id
         this.title = title
         this.year = year

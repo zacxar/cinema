@@ -9,13 +9,14 @@ import MovieClass from "../class/MovieClass"
 import DeleteMovieForm from "../forms/DeleteMovieForm"
 import EditMovieForm from "../forms/EditMovieForm"
 import DetailMovieForm from "../forms/DetailMovieForm"
+import axios from "axios";
 
 
 class Movies extends React.Component {
     constructor(props) {
         super(props)
     }
-
+   
     showDetailForm = (id) => {
         const { moviesList } = this.props
         var index = moviesList.findIndex(function (value) {

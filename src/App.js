@@ -17,10 +17,14 @@ import RoomClass from "./class/RoomClass"
 import { createMovie } from "./api/Api";
 import { createShow } from "./api/Api"
 import { getMovie } from "./api/Api"
+import { getMovieById } from "./api/Api"
 import { deleteM } from "./api/Api"
 import { editM } from "./api/Api"
 // import "./styles/app.css"
+import axios from "axios"
 
+
+  
 class App extends React.Component {
     constructor(props) {
         super(props)
@@ -43,6 +47,7 @@ class App extends React.Component {
 
    //     this.state.showsList.push(new ShowClass(0, this.state.moviesList[0].title, this.state.moviesList[0].year, this.state.moviesList[0].duration, "2021-12-05", "20:00", 0, 10 * 10))
     }
+    
 
     createNotification(message) {
         NotificationManager.success('Success', message);
@@ -77,24 +82,34 @@ class App extends React.Component {
             lastShowId: maxId + 1
         })
     }
-
+    
     componentDidMount() {
         // const { moviesList } = this.state
         // const { showsList } = this.state
         this.calculateMovieId()
         this.calculateShowId()
     }
+    fetchData = async() =>
+    {
+        axios.get('http://localhost:3004/movies').then(res => this.state.moviesList=[...res.data]) 
+     }
+     
 
-    addMovie = (s) => {
+    addMovie = async(s) => {
         this.calculateMovieId()
         this.setState(state => {
             if (state.title !== '' && state.year !== '' && state.duration !== '') {
+              
                 var id = this.state.lastMovieId
                 var movies = state.moviesList
-                let newMovie = new MovieClass(id, s.title, s.year, s.duration) /*, s.image*/
+                let newMovie = new MovieClass(id, s.title, s.year, s.duration, s.image)
                 movies.push(newMovie)
                 createMovie(s)
-                console.log(newMovie.id)
+              //   let data= getMovie()
+                //console.log(data)
+               // let data=this.fetchData()
+                //console.log(data)
+                //movies.push(data)
                 this.calculateMovieId()
                 return {moviesList : movies}
             }
@@ -115,17 +130,16 @@ class App extends React.Component {
         this.createNotification("Zedytowano film")
     }
 
-    //1 2 3 4 5 6 7
-    //1 2 3 4 6 7 8
     deleteMovie = (index) => {
         this.setState(state => {
             var movies = state.moviesList
             deleteM(movies[index].id)
             movies.splice(index, 1)
-            movies = getMovie()
+            // movies = getMovie()
             return { moviesList: movies }
         })
     }
+   // validateAddForm
 
     addShow = (s) => {
         const { roomsList } = this.state
@@ -135,8 +149,9 @@ class App extends React.Component {
                 var id = this.state.lastShowId
                 var shows = state.showsList
                 let newShow = new ShowClass(id, s.title, s.year, s.duration, s.date, s.time, s.roomId, roomsList[s.roomId].rows * roomsList[s.roomId].seatsInRow)
-                createShow(61, s.title, s.year, s.duration, s.date, s.time, s.roomId, roomsList[s.roomId].rows * roomsList[s.roomId].seatsInRow)
+                //createShow(61, s.title, s.year, s.duration, s.date, s.time, s.roomId, roomsList[s.roomId].rows * roomsList[s.roomId].seatsInRow)
                 shows.push(newShow)
+                this.calculateShowId()
                 return {showsList : shows}
             //}
         })
@@ -162,6 +177,23 @@ class App extends React.Component {
             return { showsList: shows }
         })
     }
+    // popularShow=(index, date)=>{
+    //     const { showsList } = this.state
+    //     var popular=[]
+    //     let todayDate=new Date()
+    //     let temp=showsList
+        
+    //     if(date===todayDate && date.time===todayDate.time )
+    //     {
+    //         for(let i=0; i<showsList.length;i++)
+    //         {
+    //             Math.max.apply(null, showsList)
+    //                 popular.push( Math.max.apply(null, showsList))}
+    //         <li>{popular}</li>
+    //                  console.log(popular)
+    //     }
+       
+    // }
 
     render () {
         const { moviesList, showsList, roomsList } = this.state
@@ -172,6 +204,7 @@ class App extends React.Component {
 
                 <Routes>
                     <Route exact path="/"
+  //  element={}
                         //render seansow w danym dniu i aktualnie trwajacych seansow
                     />
 
@@ -193,6 +226,8 @@ class App extends React.Component {
                         //bład nie znajduje addshow
                         element={<AddShow addShow={this.addShow}
                             moviesList={moviesList}
+                            roomsList={roomsList}
+                            showsList={showsList}
                         />}
                     />
 
@@ -204,12 +239,19 @@ class App extends React.Component {
                         />}
                         //render wszystkich seansow (zarzadzanie seansami - usuwanie i edytowanie)
                     />
+                    <Route path="/pop"
+                        element={<Shows showsList={this.popular}
+                        />}
+                        //render wszystkich seansow (zarzadzanie seansami - usuwanie i edytowanie)
+                    />
                     <Route path="/allRooms"
                         element={<Rooms roomList={this.roomList}
                             
                         />}
+                        
                         //render wszystkich seansow (zarzadzanie seansami - usuwanie i edytowanie)
                     />
+                    
                     
                 </Routes>
 

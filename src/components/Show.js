@@ -21,10 +21,10 @@ const Show = props => {
 }
 
 Show.propTypes = {
-    title: PropTypes.string,
-    year: PropTypes.number,
-    duration: PropTypes.number,
-    date: PropTypes.instanceOf(Date)
+    title: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    duration: PropTypes.number.isRequired,
+    date: PropTypes.instanceOf(Date).isRequired
 }
 
 // Movie.defaultProps = {

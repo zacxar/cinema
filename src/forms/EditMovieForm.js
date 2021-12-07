@@ -18,6 +18,7 @@ class EditMovieForm extends React.Component {
             [name]: e.target.value
         })
     }
+  
 
     render() {
         const { index, moviesList, editMovie, onClose } = this.props

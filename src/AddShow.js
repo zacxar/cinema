@@ -12,10 +12,10 @@ class AddShow extends React.Component {
             title: '',
             year: '',
             duration: '',
-            date: '',
             roomId: '',
             showDate: '',
-            showTime: '',
+            hour: '',
+            minute: '',
             selectMovieId: 0,
             redirect: false
         }
@@ -30,8 +30,10 @@ class AddShow extends React.Component {
 
     add = () => {
         const { addShow, moviesList } = this.props
-        const { showDate, showTime, roomId, selectMovieId } = this.state
+        const { showDate, hour, minute, roomId, selectMovieId } = this.state
 
+        let showTime = hour + ":" + minute
+        
         const body = {
             title: moviesList[selectMovieId].title,
             year: moviesList[selectMovieId].year,
@@ -47,9 +49,23 @@ class AddShow extends React.Component {
         })
     }
 
+    // validateShow() {
+    //     const { showsList } = this.props
+    //     const { title, selectMovieId, showDate, hour, minute } = this.state
+    //     let showTime = hour + ":" + minute
+
+    //     if((title === null || showsList.includes((show) => {
+    //         show.title === title && (new Date(showDate)) === (new Date(show.showDate))
+    //     })))
+    //     {
+            
+    //     }
+
+    // }
+
     render() {
         const { redirect } = this.state
-        const { moviesList } = this.props
+        const { moviesList, roomsList } = this.props
         
         let today = new Date()
         
@@ -66,6 +82,9 @@ class AddShow extends React.Component {
         let todayDate = todayYear + "-" + todayMonth + "-" + todayDay
         let maxDate = (todayYear + 1) + "-" + todayMonth + "-" + todayDay
 
+        var hourList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+        var minuteList = [0, 15, 30, 45]
+
         if (redirect === true)
             return <Navigate to="/allShows"/>
 
@@ -75,19 +94,55 @@ class AddShow extends React.Component {
                 {/* <input type="text" placeholder="Tytuł filmu" id="title" onChange={(e) => this.onChange(e)}/>
                 <input type="text" placeholder="Rok produkcji" id="year" onChange={(e) => this.onChange(e)}/>
                 <input type="text" placeholder="Długość filmu (minuty)" id="duration" onChange={(e) => this.onChange(e)}/> */}
-
-                <select id="selectMovieId" onChange={(e) => this.onChange(e)}>
-                    {moviesList.map((movie, key) => {
-                        return (
-                            <option value={key}>{movie.title}</option>
-                        )
-                    })}
-                </select>
-
-                <input type="date" id="showDate" value={todayDate} min={todayDate} max={maxDate} onChange={(e) => this.onChange(e)}/>
-                <input type="time" id="showTime" onChange={(e) => this.onChange(e)}/>
+                <label>
+                    Film:
+                    <select id="selectMovieId" onChange={(e) => this.onChange(e)}>
+                        {moviesList.map((movie, key) => {
+                            return (
+                                <option value={key}>{movie.title}</option>
+                            )
+                        })}
+                    </select>
+                </label>
                 
-                <input type="text" placeholder="Sala" id="roomId" onChange={(e) => this.onChange(e)}/> {/* ZAMIAST TEGO MA BYĆ SELECT!!! */}
+                <label>
+                    Data:
+                    <input type="date" id="showDate" min={todayDate} max={maxDate} onChange={(e) => this.onChange(e)}/>
+                </label>
+
+                <label>
+                    Godzina:
+                    <select id="hour" onChange={(e) => this.onChange(e)}>
+                        {hourList.map((key) => {
+                            return (
+                                <option value={key}>{key}</option>
+                            )
+                        })}
+                    </select>
+
+                    <select id="minute" onChange={(e) => this.onChange(e)}>
+                        {minuteList.map((key) => {
+                            return (
+                                <option value={key}>{key}</option>
+                            )
+                        })}
+                    </select>
+                    {/* <input type="time" id="showTime" onChange={(e) => this.onChange(e)}/> */}
+                </label>
+                
+                <label>
+                    Sala:
+                    <select id="roomId" onChange={(e) => this.onChange(e)}>
+                        {roomsList.map((room, key) => {
+                            return (
+                                <option value={key}>Sala nr {key}, liczba miejsc: {room.rows * room.seatsInRow}</option>
+                            )
+                        })}
+                    </select>
+                </label>
+                
+
+                {/* <input type="text" placeholder="Sala" id="roomId" onChange={(e) => this.onChange(e)}/> ZAMIAST TEGO MA BYĆ SELECT!!! */}
                 
                 <Button variant="secondary" onClick={this.add}>Dodaj seans</Button>
             </div>
