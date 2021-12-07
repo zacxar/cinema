@@ -50,7 +50,7 @@ class Shows extends React.Component {
         }
        
     showEditForm = (id) => {
-        const { showsList, editShow } = this.props
+        const { showsList, editShow, moviesList, roomsList } = this.props
         var index = showsList.findIndex(function (value) {
             return value.id === id;
         })
@@ -59,7 +59,7 @@ class Shows extends React.Component {
             customUI: ({ onClose }) => {
                 return (
                     <div>
-                        <EditShowForm showsList={showsList} index={index} onClose={onClose} editShow={editShow}/>
+                        <EditShowForm showsList={showsList} index={index} onClose={onClose} editShow={editShow} moviesList={moviesList} roomsList={roomsList}/>
                         <NotificationContainer/>
                     </div>
                 )
@@ -95,11 +95,13 @@ class Shows extends React.Component {
                          <Show
                             key={key}
                             id={show.id}
+                            movieId={show.movieId}
                             title={show.title}
                             year={show.year}
                             duration={show.duration}
                             date={show.date}
-                            time={show.time}
+                            hour={show.hour}
+                            minute={show.minute}
                             roomId={show.roomId}
                             seats={show.seats}
                             showDetailForm={this.showDetailForm}

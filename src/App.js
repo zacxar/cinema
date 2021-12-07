@@ -20,11 +20,9 @@ import { getMovie } from "./api/Api"
 import { getMovieById } from "./api/Api"
 import { deleteM } from "./api/Api"
 import { editM } from "./api/Api"
-// import "./styles/app.css"
+import "./styles/app.css"
 import axios from "axios"
 
-
-  
 class App extends React.Component {
     constructor(props) {
         super(props)
@@ -148,7 +146,7 @@ class App extends React.Component {
             //if (state.title !== '' && state.year !== '' && state.duration !== '' ) {
                 var id = this.state.lastShowId
                 var shows = state.showsList
-                let newShow = new ShowClass(id, s.title, s.year, s.duration, s.date, s.time, s.roomId, roomsList[s.roomId].rows * roomsList[s.roomId].seatsInRow)
+                let newShow = new ShowClass(id, s.movieId, s.title, s.year, s.duration, s.date, s.hour, s.minute, s.roomId, roomsList[s.roomId].rows * roomsList[s.roomId].seatsInRow)
                 //createShow(61, s.title, s.year, s.duration, s.date, s.time, s.roomId, roomsList[s.roomId].rows * roomsList[s.roomId].seatsInRow)
                 shows.push(newShow)
                 this.calculateShowId()
@@ -158,13 +156,15 @@ class App extends React.Component {
     }
 
     editShow = (index, s) => {
+        const { moviesList } = this.state
         this.setState(state => {
             var shows = state.showsList
 
             shows[index].date = s.editDate
             shows[index].hour = s.editHour
-            shows[index].room = s.editRoom
+            shows[index].minute = s.editMinute
 
+            console.log(shows[index].movieId + " " + shows[index].date + " " +  shows[index].hour + " " +  shows[index].minute + " " +  shows[index].room)
             return { ShowsList: shows }
         })
         this.createNotification("Zedytowano seans")
@@ -204,7 +204,6 @@ class App extends React.Component {
 
                 <Routes>
                     <Route exact path="/"
-  //  element={}
                         //render seansow w danym dniu i aktualnie trwajacych seansow
                     />
 
@@ -236,6 +235,8 @@ class App extends React.Component {
                             roomsList={roomsList}
                             deleteShow={this.deleteShow}
                             editShow={this.editShow}
+                            moviesList={moviesList}
+                            roomsList={roomsList}
                         />}
                         //render wszystkich seansow (zarzadzanie seansami - usuwanie i edytowanie)
                     />

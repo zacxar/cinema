@@ -1,9 +1,6 @@
 import React from "react"
 import { Button } from "react-bootstrap"
 import * as Icon from "react-bootstrap-icons"
-import Seat from "../components/Seat"
-import Seats from "../components/Seats"
-import SeatClass from "../class/SeatClass"
 import "../styles/reservationform.css"
 
 class ReservationForm extends React.Component {
@@ -31,10 +28,10 @@ class ReservationForm extends React.Component {
         else if(seat.className === "seatPicked") {
             seat.className = "seat"
             let id = pickedSeats.findIndex(function(value) {
-                return value.id === seat.id
+                return value === seat.id
             })
             pickedSeats.splice(id, 1)
-            console.log("usun " + seat.id)
+            console.log("usun " + seat.id + "na id = " + id)
         }
     }
 

@@ -4,8 +4,8 @@ import { Button } from "react-bootstrap"
 
 const Movie = props => {
     return (
-        <div>
-            <p>Tytuł: {props.title}</p>
+        <div className="movieContainer">
+            <h3>{props.title}</h3>
             <p>Rok produkcji: {props.year}</p>
             <p>Czas trwania: {props.duration}</p>
             <p>{props.image}</p>

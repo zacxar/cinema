@@ -15,7 +15,7 @@ const DetailShowForm = (props) => {
             </div>
             <div className="showsDetail">
                 <p>Data seansu: {showsList[index].date}</p>
-                <p>Godzina sansu: {showsList[index].hour}</p>
+                <p>Godzina sansu: {showsList[index].hour + ":" + showsList[index].minute}</p>
             </div>
         </div>
     )

@@ -1,1 +1,0 @@
-<h3>Cinema city</h3>

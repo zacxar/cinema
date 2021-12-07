@@ -4,12 +4,12 @@ import { Button } from "react-bootstrap"
 
 const Show = props => {
     return (
-        <div>
-            <p>Tytuł: {props.title}</p>
+        <div className="showContainer">
+            <h3>{props.title}</h3>
             <p>Rok produkcji: {props.year}</p>
             <p>Czas trwania: {props.duration}</p>
             <p>Data: {props.date}</p>
-            <p>Godzina: {props.time}</p>
+            <p>Godzina: {props.hour + ":" + props.minute}</p>
             <p>Sala: {props.roomId}</p>
             <p>Ilość miejsc: {props.seats}</p>
             

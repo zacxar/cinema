@@ -12,10 +12,10 @@ class AddShow extends React.Component {
             title: '',
             year: '',
             duration: '',
-            roomId: '',
+            roomId: 0,
             showDate: '',
-            hour: '',
-            minute: '',
+            hour: 0,
+            minute: 0,
             selectMovieId: 0,
             redirect: false
         }
@@ -31,15 +31,15 @@ class AddShow extends React.Component {
     add = () => {
         const { addShow, moviesList } = this.props
         const { showDate, hour, minute, roomId, selectMovieId } = this.state
-
-        let showTime = hour + ":" + minute
         
         const body = {
+            movieId: selectMovieId,
             title: moviesList[selectMovieId].title,
             year: moviesList[selectMovieId].year,
             duration: moviesList[selectMovieId].duration,
             date: showDate,
-            time: showTime,
+            hour: hour,
+            minute: minute,
             roomId: roomId
         }
 

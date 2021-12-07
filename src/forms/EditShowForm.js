@@ -8,9 +8,9 @@ class EditShowForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            //editTitle: props.moviesList[props.index].title,
-            editDate: props.showsList[props.index].date,
-            editHour: props.showsList[props.index].date,
+            editDate : props.showsList[props.index].date,
+            editHour : props.showsList[props.index].hour,
+            editMinute : props.showsList[props.index].minute,
         }
     }
 
@@ -20,35 +20,61 @@ class EditShowForm extends React.Component {
             [name]: e.target.value
         })
     }
-    datePick()
-    {
-        const [value, onChange]=this.useState(new Date())
-        return(
-            <div>
-                <DatePicker
-                onChange={this.onChange}
-                value={this.value}
-                />
-            </div>
-        )
-    }
 
     render() {
         const { index, showsList, editShow, onClose } = this.props
+
+        let today = new Date()
+        
+        let todayYear = today.getFullYear()
+        let todayMonth = today.getMonth() + 1
+        let todayDay = today.getDate()
+
+        if(todayDay < 10)
+            todayDay = '0' + todayDay
+
+        if(todayMonth < 10)
+            todayMonth = '0' + todayMonth
+
+        let todayDate = todayYear + "-" + todayMonth + "-" + todayDay
+        let maxDate = (todayYear + 1) + "-" + todayMonth + "-" + todayDay
+
+        var hourList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+        var minuteList = [0, 15, 30, 45]
+
         return (
             <div className="alertForm">
                 <span className="closeButton">
-                    <Icon.XLg color="black" size={18} onClick={() => onClose}/>
+                    <Icon.XLg color="black" size={18} onClick={() => onClose()}/>
                 </span>
-                <div className="showDateEdit">
-                    <label className="showEditLabel">Data</label>
-                    <input type="text" id="editDate" defaultValue={showsList[index].date} style={{border: "none"}} onChange={(e) => this.onChange(e)}/>
-                </div>
-                <div className="showDateEdit">
-                    <label className="showEditLabel">Godzina</label>
-                    <input type="text" id="editHour" defaultValue={showsList[index].date} style={{border: "none"}} onChange={(e) => this.onChange(e)}/>
-                </div>
-           
+                
+                <label>
+                    Data:
+                    <input type="date" id="editDate" min={todayDate} max={maxDate} defaultValue={showsList[index].date} onChange={(e) => this.onChange(e)}/>
+                </label>
+
+                <label>
+                    Godzina:
+                    <select id="editHour" onChange={(e) => this.onChange(e)}>
+                        <option value={showsList[index].hour}>Obecna godzina: {showsList[index].hour}</option>
+                        {hourList.map((key) => {
+                            return (
+                                <option value={key}>{key}</option>
+                            )
+                        })}
+                    </select>
+
+                    <select id="editMinute" onChange={(e) => this.onChange(e)}>
+                        <option value={showsList[index].minute}>Obecna minuta: {showsList[index].minute}</option>
+                        {minuteList.map((key) => {
+                            return (
+                                <option value={key}>{key}</option>
+                            )
+                        })}
+                    </select>
+                    {/* <input type="time" id="showTime" onChange={(e) => this.onChange(e)}/> */}
+                </label>
+
                 <div className="showEditButton">
                     <Button variant="primary" onClick={() => editShow(index, this.state)}>Zapisz</Button>
                 </div>
